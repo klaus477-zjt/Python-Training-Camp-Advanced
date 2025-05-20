@@ -30,4 +30,12 @@ def smooth_l1(x, sigma=1.0):
     # 3. 对满足条件的元素应用第一个公式 (0.5 * (sigma * x)**2)。
     # 4. 对不满足条件的元素应用第二个公式 (|x| - 0.5 / sigma2)。
     # 5. 可以使用 np.where() 来根据条件选择应用哪个公式。
+    sigma2 = sigma*sigma
+    idx = np.where(np.abs(x) < 1/sigma2)
+    idx2 = np.where(np.abs(x)>= 1/sigma2)
+    x[idx] = 0.5*(sigma*x[idx])**2
+    x[idx2] = np.abs(x[idx2]) - 0.5 / sigma2
+    L = x
+    return L
+
     pass 
